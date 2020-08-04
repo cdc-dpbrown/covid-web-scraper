@@ -9,9 +9,7 @@ namespace Cdc.Covid.WebScraper
     [DebuggerDisplay("{MetadataReport}")]
     public sealed class MetadataReport
     {
-
         public List<StateScrapeInfo> StateInfos { get; private set; } = new List<StateScrapeInfo>();
-
 
         public MetadataReport()
         {

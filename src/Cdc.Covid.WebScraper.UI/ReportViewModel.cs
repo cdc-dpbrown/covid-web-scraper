@@ -9,8 +9,18 @@ namespace Cdc.Covid.WebScraper.UI
 {
     public sealed class ReportViewModel : ObservableObject
     {
+        private MetadataReport _metadataReport;
         private readonly ReportGenerator _generator = new ReportGenerator();
         private StateReport _selectedReport;
+        
+        public MetadataReport ScrapeMetadata
+        {
+            get => new MetadataReport();
+            set
+            {
+                _metadataReport = value;
+            }
+        }
 
         public StateReport SelectedReport
         {

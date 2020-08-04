@@ -34,5 +34,17 @@ namespace Cdc.Covid.WebScraper.UI
                 vm.SelectedReport = state;
             }
         }
+
+        private void Button_Click_Home(object sender, RoutedEventArgs e)
+        {
+            homeGrid.Visibility = Visibility.Visible;
+            rootFrame.Visibility = Visibility.Hidden;
+        }
+
+        private void Button_Click_Generate_All(object sender, RoutedEventArgs e)
+        {
+            homeGrid.Visibility = Visibility.Hidden;
+            rootFrame.Visibility = Visibility.Visible;
+        }
     }
 }
