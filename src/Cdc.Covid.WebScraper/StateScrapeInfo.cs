@@ -11,14 +11,14 @@ namespace Cdc.Covid.WebScraper
     {
         public string State { get; private set; } = string.Empty;
         public string StateAbbreviation { get; private set; } = string.Empty;
-        public string SourceType { get; private set; } = "";
+        public SourceTypes SourceType { get; private set; } = SourceTypes.Custom;
         public string Source { get; private set; } = "";
         public string Expression { get; private set; } = "";
 
         public DateTime DateSourceUpdated { get; private set; } = DateTime.MinValue;
         public List<string> Status { get; private set; } = new List<string>();
 
-        public StateScrapeInfo(string state, string abbreviation, string sourceType, string source, string expression)
+        public StateScrapeInfo(string state, string abbreviation, SourceTypes sourceType, string source, string expression)
         {
             State = state;
             StateAbbreviation = abbreviation;

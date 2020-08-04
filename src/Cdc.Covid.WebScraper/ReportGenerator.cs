@@ -25,9 +25,46 @@ namespace Cdc.Covid.WebScraper
         private List<IStateScraper> GetScraperList()
         {
             List<IStateScraper> scrapers = new List<IStateScraper>();
-            
-            scrapers.Add(new GA_Scraper());
-            scrapers.Add(new MI_Scraper());
+
+            MetadataReport metadataReport = new MetadataReport();
+            var infos = metadataReport.StateInfos;
+
+            foreach(var info in infos)
+            {
+                switch (info.SourceType)
+                {
+                    case SourceTypes.ArcGIS:
+                    {
+                        scrapers.Add(new Excel_Scraper());
+                        break;
+                    }
+                    case SourceTypes.Custom:
+                    {
+
+                        break;
+                    }
+                    case SourceTypes.Excel:
+                    {
+
+                        break;
+                    }
+                    case SourceTypes.HTML:
+                    {
+
+                        break;
+                    }
+                    case SourceTypes.XPATH:
+                    {
+
+                        break;
+                    }
+                    case SourceTypes.Zip:
+                    {
+                        scrapers.Add(new Zip_Scraper());
+                        break;
+                    }
+                }
+            }
 
             return scrapers;
         }

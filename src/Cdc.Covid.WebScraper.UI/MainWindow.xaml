@@ -51,13 +51,15 @@
                     Command="{Binding HomeCommand}" 
                     DockPanel.Dock="Top"
                     Margin="10, 10, 10, 4"
-                    HorizontalAlignment="Stretch" Click="Button_Click_Home"/>
+                    HorizontalAlignment="Stretch"
+                    Click="Button_Click_Home"/>
             
             <Button Content="Generate All State Reports" 
                     Command="{Binding GenerateReportCommand}"
                     DockPanel.Dock="Top"
                     HorizontalAlignment="Stretch"
-                    Margin="10, 10, 10, 4" Click="Button_Click_Generate_All"/>
+                    Margin="10, 10, 10, 4" 
+                    Click="Button_Click_Generate_All"/>
 
             <ui:AutoSuggestBox x:Name="controlsSearchBox"
                 DockPanel.Dock="Top"
@@ -69,6 +71,7 @@
             <ui:ListView
                 x:Name="ReportsList"
                 DockPanel.Dock="Top"
+                Margin="10, 10, 10, 4"
                 DisplayMemberPath="State"
                 SelectedValuePath="State"
                 SelectedIndex="0"
