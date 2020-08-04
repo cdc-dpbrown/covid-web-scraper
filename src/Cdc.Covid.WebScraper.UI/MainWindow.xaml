@@ -14,9 +14,9 @@
     <Window.DataContext>
         <local:ReportViewModel x:Name="vm" />
     </Window.DataContext>
-    
+
     <Grid x:Name="LayoutRoot">
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -44,28 +44,29 @@
             
         </ui:ThemeShadowChrome>-->
 
-        
+
         <DockPanel
             Background="{StaticResource SystemControlBackgroundBaseLowBrush}"
-            Grid.Row="1"    
-            >
+            Grid.Row="1">
 
-            <Button 
-                DockPanel.Dock="Top"
-                HorizontalAlignment="Center"
-                Margin="10, 10, 10, 4"
-                Content="Generate all state reports" Command="{Binding GenerateReportCommand}" Style="{StaticResource AccentButtonStyle}" />
-
+            <Button Content="Home" 
+                    Command="{Binding HomeCommand}" 
+                    DockPanel.Dock="Top"
+                    Margin="10, 10, 10, 4"
+                    HorizontalAlignment="Stretch"/>
             
+            <Button Content="Generate All State Reports" 
+                    Command="{Binding GenerateReportCommand}"
+                    DockPanel.Dock="Top"
+                    HorizontalAlignment="Stretch"
+                    Margin="10, 10, 10, 4"/>
 
-            <ui:AutoSuggestBox
-                x:Name="controlsSearchBox"
+            <ui:AutoSuggestBox x:Name="controlsSearchBox"
                 DockPanel.Dock="Top"
                 Margin="12"
                 PlaceholderText="Search"
-                
                 QueryIcon="Find"
-                 />
+                Visibility="Collapsed"/>
 
             <ui:ListView
                 x:Name="ReportsList"
@@ -78,12 +79,42 @@
                 >
             </ui:ListView>
         </DockPanel>
-        
-        <Grid
-            x:Name="rootFrame"
-            Margin="12, 0, 0, 0"
-            Grid.Row="1"
-            Grid.Column="1">
+
+        <Grid x:Name="homeGrid"
+                Margin="12, 0, 0, 0"
+                Grid.Row="1" 
+                Grid.Column="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--<StackPanel Grid.Row="0" Margin="0, 0, 0, 16">
+                <TextBlock Text="{Binding SelectedReport.State}" Style="{StaticResource SubheaderTextBlockStyle}" />
+                <TextBlock Margin="0, 8, 0, 8" Text="{Binding SelectedReport.DateGenerated}" Style="{StaticResource BodyTextBlockStyle}" />
+            </StackPanel>-->
+
+            <DataGrid x:Name="settingGrid"
+                Grid.Row="1"
+                VerticalScrollBarVisibility="Visible"
+                VerticalAlignment="Top"
+                MinRowHeight="24"
+                GridLinesVisibility="Horizontal"
+                HeadersVisibility="All"  
+                IsReadOnly="False"
+                CanUserReorderColumns="False"
+                CanUserSortColumns = "False"
+                ItemsSource="{Binding MetadataReport.StateInfo}">
+            </DataGrid>
+
+        </Grid>
+
+        <Grid x:Name="rootFrame"
+                Margin="12, 0, 0, 0"
+                Grid.Row="1" 
+                Grid.Column="1"
+                Visibility="Hidden">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -94,10 +125,10 @@
                 <TextBlock Text="{Binding SelectedReport.State}" Style="{StaticResource SubheaderTextBlockStyle}" />
                 <TextBlock Margin="0, 8, 0, 8" Text="{Binding SelectedReport.DateGenerated}" Style="{StaticResource BodyTextBlockStyle}" />
                 <StackPanel Orientation="Horizontal">
-                    
+
                     <TextBlock Text="Confirmed: "/>
                     <TextBlock Text="{Binding SelectedReport.Confirmed}"/>
-                    
+
                     <StackPanel Width="10" />
 
                     <TextBlock Text="Deaths: "/>
@@ -110,28 +141,20 @@
 
                 </StackPanel>
             </StackPanel>
-            
 
-                <DataGrid Grid.Row="1"
+            <DataGrid Grid.Row="1"
                     VerticalScrollBarVisibility="Visible"
                     VerticalAlignment="Top"
                     MinRowHeight="24"
                     GridLinesVisibility="Horizontal"
                     HeadersVisibility="All"  
-    IsReadOnly="True"
-    CanUserReorderColumns="False"
-    CanUserSortColumns = "False"
+                    IsReadOnly="True"
+                    CanUserReorderColumns="False"
+                    CanUserSortColumns = "False"
                     ItemsSource="{Binding SelectedReport.CountyInfo}">
-                    
-                </DataGrid>
+            </DataGrid>
 
-            
         </Grid>
 
-        <!--<StackPanel Grid.Column="0">
-            <TextBlock Text="COVID-19 State Web Scraper Utility app" Style="{StaticResource HeaderTextBlockStyle}" />
-            <Button Content="I am a button" />
-            <Button Content="I am an accent button" Style="{StaticResource AccentButtonStyle}" />
-        </StackPanel>-->
     </Grid>
 </Window>
