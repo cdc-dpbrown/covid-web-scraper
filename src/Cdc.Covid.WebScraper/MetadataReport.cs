@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Cdc.Covid.WebScraper
 {
@@ -22,11 +21,19 @@ namespace Cdc.Covid.WebScraper
             SourceTypeText.Add(SourceTypes.XPATH, "Excel (.xlsx)");
             SourceTypeText.Add(SourceTypes.Zip, "Zip File (.zip)");
 
-            StateInfos.Add(new StateScrapeInfo("Alabama", "AL", SourceTypes.Excel, "https://dph1.adph.state.al.us/covid-19/", ""));
+            StateInfos.Add(new StateScrapeInfo("Alabama", "AL", SourceTypes.Custom, "https://dph1.adph.state.al.us/covid-19/", ""));
             StateInfos.Add(new StateScrapeInfo("Florida", "FL", SourceTypes.ArcGIS, "https://experience.arcgis.com/experience/96dd742462124fa0b38ddedb9b25e429", ""));
-            StateInfos.Add(new StateScrapeInfo("Georgia", "GA", SourceTypes.Zip, "https://ga-covid19.ondemand.sas.com/docs/ga_covid_data.zip", ""));
+
+            Expression expression = new Expression();
+            expression.FileName = "countycases.csv";
+
+            StateInfos.Add(new StateScrapeInfo("Georgia", "GA", SourceTypes.Zip, "https://ga-covid19.ondemand.sas.com/docs/ga_covid_data.zip", JsonSerializer.Serialize(expression)));
             StateInfos.Add(new StateScrapeInfo("Kentucky", "KY", SourceTypes.Custom, "https://kygeonet.maps.arcgis.com/apps/opsdashboard/index.html#/543ac64bc40445918cf8bc34dc40e334", ""));
-            StateInfos.Add(new StateScrapeInfo("Mississippi", "MS", SourceTypes.XPATH, "https://msdh.ms.gov/msdhsite/_static/14,0,420.html#Mississippi", "/html/body/div[1]/div[3]/div[5]/div/table[1]/tbody"));
+
+            expression = new Expression();
+            expression.XPath = "/html/body/div[1]/div[3]/div[5]/div/table[1]/tbody";
+
+            StateInfos.Add(new StateScrapeInfo("Mississippi", "MS", SourceTypes.XPATH, "https://msdh.ms.gov/msdhsite/_static/14,0,420.html#Mississippi", JsonSerializer.Serialize(expression)));
             StateInfos.Add(new StateScrapeInfo("North Carolina", "NC", SourceTypes.HTML, "https://covid19.ncdhhs.gov/dashboard/about-data", ""));
             StateInfos.Add(new StateScrapeInfo("South Carolina", "SC", SourceTypes.HTML, "https://www.scdhec.gov/infectious-diseases/viruses/coronavirus-disease-2019-covid-19/sc-cases-county-zip-code-covid-19", ""));
             StateInfos.Add(new StateScrapeInfo("Tennesee", "TN", SourceTypes.ArcGIS, "https://experience.arcgis.com/experience/885e479b688b4750837ba1d291b85aed", ""));
@@ -43,4 +50,5 @@ namespace Cdc.Covid.WebScraper
         XPATH,
         Zip
     }
+
 }

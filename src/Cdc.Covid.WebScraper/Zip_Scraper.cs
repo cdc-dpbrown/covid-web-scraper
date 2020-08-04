@@ -10,21 +10,35 @@ namespace Cdc.Covid.WebScraper
 {
     public class Zip_Scraper : IStateScraper
     {
-        private const string URI = "https://ga-covid19.ondemand.sas.com/docs/ga_covid_data.zip";
+        private string _state = string.Empty;
+        private string _stateAbbreviation = string.Empty;
+        private SourceTypes _sourceType;
+        private string _source = string.Empty;
+        private Expression _expression = new Expression();
+
+
+        public Zip_Scraper(string state, string stateAbbreviation, SourceTypes sourceType, string source, Expression expression)
+        {
+            _state = state;
+            _stateAbbreviation = stateAbbreviation;
+            _sourceType = sourceType;
+            _source = source;
+            _expression = expression;
+        }
 
         public async Task<StateReport> ExecuteScrapeAsync()
         {
             List<CountyReport> countyReports = new List<CountyReport>(250);
 
             HttpClient client = new HttpClient();
-            using (var file = await client.GetStreamAsync(URI).ConfigureAwait(false))
+            using (var file = await client.GetStreamAsync(_source).ConfigureAwait(false))
             using (var memoryStream = new MemoryStream())
             {
                 await file.CopyToAsync(memoryStream);
 
                 using (ZipArchive z = new ZipArchive(memoryStream))
                 {
-                    ZipArchiveEntry zEntry = z.Entries.FirstOrDefault(e => e.Name.Contains("countycases.csv"));
+                    ZipArchiveEntry zEntry = z.Entries.FirstOrDefault(e => e.Name.Contains(_expression.FileName));
 
                     using (Stream csvStream = zEntry.Open())
                     using (StreamReader reader = new StreamReader(csvStream))
@@ -62,7 +76,7 @@ namespace Cdc.Covid.WebScraper
                 }
             }
 
-            return new StateReport(state: "Georgia", abbreviation: "GA", reports: countyReports);
+            return new StateReport(state: _state, abbreviation: _stateAbbreviation, reports: countyReports);
         }
     }
 }

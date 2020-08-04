@@ -13,7 +13,9 @@ namespace Cdc.Covid.WebScraper
         {
             List<StateReport> stateReports = new List<StateReport>();
 
-            Parallel.ForEach(GetScraperList(), scraper =>
+            List<IStateScraper> scrapers = GetScraperList();
+
+            Parallel.ForEach(scrapers, scraper =>
             {
                 StateReport stateReport = scraper.ExecuteScrapeAsync().Result;
                 lock (_syncLock) { stateReports.Add(stateReport); }
@@ -35,7 +37,7 @@ namespace Cdc.Covid.WebScraper
                 {
                     case SourceTypes.ArcGIS:
                     {
-                        scrapers.Add(new Excel_Scraper());
+
                         break;
                     }
                     case SourceTypes.Custom:
@@ -45,7 +47,7 @@ namespace Cdc.Covid.WebScraper
                     }
                     case SourceTypes.Excel:
                     {
-
+                        scrapers.Add(new Excel_Scraper(info.State, info.StateAbbreviation, info.SourceType, info.Source, info.ExpressionObject));
                         break;
                     }
                     case SourceTypes.HTML:
@@ -60,7 +62,7 @@ namespace Cdc.Covid.WebScraper
                     }
                     case SourceTypes.Zip:
                     {
-                        scrapers.Add(new Zip_Scraper());
+                        scrapers.Add(new Zip_Scraper(info.State, info.StateAbbreviation, info.SourceType, info.Source, info.ExpressionObject));
                         break;
                     }
                 }

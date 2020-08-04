@@ -11,14 +11,28 @@ namespace Cdc.Covid.WebScraper
 {
     public class Excel_Scraper : IStateScraper
     {
-        private const string URI = "https://www.michigan.gov/documents/coronavirus/Cases_and_Deaths_by_County_2020-07-24_697248_7.xlsx";
+        private string _state = string.Empty;
+        private string _stateAbbreviation = string.Empty;
+        private SourceTypes _sourceType;
+        private string _source = string.Empty;
+        private Expression _expression = new Expression();
+
+        public Excel_Scraper(string state, string stateAbbreviation, SourceTypes sourceType, string source, Expression expression)
+        {
+            _state = state;
+            _stateAbbreviation = stateAbbreviation;
+            _sourceType = sourceType;
+            _source = source;
+            _expression = expression;
+        }
+
 
         public async Task<StateReport> ExecuteScrapeAsync()
         {
             List<CountyReport> countyReports = new List<CountyReport>(250);
 
             HttpClient client = new HttpClient();
-            using (Stream file = await client.GetStreamAsync(URI).ConfigureAwait(false))
+            using (Stream file = await client.GetStreamAsync(_source).ConfigureAwait(false))
             {
                 var wb = new XSSFWorkbook(file);
                 ISheet sheet = wb.GetSheetAt(0);
@@ -33,7 +47,6 @@ namespace Cdc.Covid.WebScraper
                         
                         if (curRow == null)
                         {
-                            // Valid row count
                             rowCount = i - 1;
                             break;
                         }
@@ -70,7 +83,7 @@ namespace Cdc.Covid.WebScraper
                 }
             }
 
-            return new StateReport(state: "Michigan", abbreviation: "MI", reports: countyReports);
+            return new StateReport(state: _state, abbreviation: _stateAbbreviation, reports: countyReports);
         }
     }
 }
