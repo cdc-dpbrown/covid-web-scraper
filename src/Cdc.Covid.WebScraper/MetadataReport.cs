@@ -31,7 +31,7 @@ namespace Cdc.Covid.WebScraper
             //StateInfos.Add(new StateScrapeInfo("Kentucky", "KY", SourceTypes.Custom, "https://kygeonet.maps.arcgis.com/apps/opsdashboard/index.html#/543ac64bc40445918cf8bc34dc40e334", ""));
 
             expression = new Expression();
-            expression.XPath = "/html/body/div[1]/div[3]/div[5]/div/table[1]/tbody";
+            expression.XPath = "/html/body/div[1]/div[3]/div[5]/div/table[1]";
             StateInfos.Add(new StateScrapeInfo("Mississippi", "MS", SourceTypes.XPATH, "https://msdh.ms.gov/msdhsite/_static/14,0,420.html#Mississippi", JsonSerializer.Serialize(expression)));
             
             //StateInfos.Add(new StateScrapeInfo("North Carolina", "NC", SourceTypes.HTML, "https://covid19.ncdhhs.gov/dashboard/about-data", ""));

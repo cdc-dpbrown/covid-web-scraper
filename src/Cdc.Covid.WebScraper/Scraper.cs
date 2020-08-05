@@ -30,8 +30,6 @@ namespace Cdc.Covid.WebScraper
         {
             List<CountyReport> countyReports = new List<CountyReport>(250);
 
-           
-
             return new StateReport(state: _state, abbreviation: _stateAbbreviation, reports: countyReports);
         }
     }

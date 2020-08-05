@@ -57,7 +57,7 @@ namespace Cdc.Covid.WebScraper
                     }
                     case SourceTypes.XPATH:
                     {
-                        scrapers.Add(new Scraper(info));
+                        scrapers.Add(new XPath_Scraper(info));
                         break;
                     }
                     case SourceTypes.Zip:
