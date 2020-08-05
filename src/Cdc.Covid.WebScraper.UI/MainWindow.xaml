@@ -68,14 +68,14 @@
                 QueryIcon="Find"
                 Visibility="Collapsed"/>
 
-            <ui:ListView
-                x:Name="ReportsList"
+            <ui:ListView x:Name="ReportsList"
                 DockPanel.Dock="Top"
                 Margin="10, 10, 10, 4"
                 DisplayMemberPath="State"
                 SelectedValuePath="State"
                 SelectedIndex="0"
                 SelectionChanged="ReportsList_SelectionChanged"
+                GotFocus="ReportsList_GotFocus"
                 ItemsSource="{Binding Reports}"
                 >
             </ui:ListView>
@@ -91,10 +91,9 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!--<StackPanel Grid.Row="0" Margin="0, 0, 0, 16">
-                <TextBlock Text="{Binding SelectedReport.State}" Style="{StaticResource SubheaderTextBlockStyle}" />
-                <TextBlock Margin="0, 8, 0, 8" Text="{Binding SelectedReport.DateGenerated}" Style="{StaticResource BodyTextBlockStyle}" />
-            </StackPanel>-->
+            <StackPanel Grid.Row="0" Margin="0, 0, 0, 16">
+                <TextBlock Text="Settings and Statuses for State Scrapes and Downloads" Style="{StaticResource SubheaderTextBlockStyle}" />
+            </StackPanel>
 
             <DataGrid x:Name="settingGrid"
                 Grid.Row="1"

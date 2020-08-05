@@ -37,32 +37,32 @@ namespace Cdc.Covid.WebScraper
                 {
                     case SourceTypes.ArcGIS:
                     {
-
+                        scrapers.Add(new Scraper(info));
                         break;
                     }
                     case SourceTypes.Custom:
                     {
-
+                        scrapers.Add(new Scraper(info));
                         break;
                     }
                     case SourceTypes.Excel:
                     {
-                        scrapers.Add(new Excel_Scraper(info.State, info.StateAbbreviation, info.SourceType, info.Source, info.ExpressionObject));
+                        scrapers.Add(new Excel_Scraper(info));
                         break;
                     }
                     case SourceTypes.HTML:
                     {
-
+                        scrapers.Add(new Scraper(info));
                         break;
                     }
                     case SourceTypes.XPATH:
                     {
-
+                        scrapers.Add(new Scraper(info));
                         break;
                     }
                     case SourceTypes.Zip:
                     {
-                        scrapers.Add(new Zip_Scraper(info.State, info.StateAbbreviation, info.SourceType, info.Source, info.ExpressionObject));
+                        scrapers.Add(new Zip_Scraper(info));
                         break;
                     }
                 }

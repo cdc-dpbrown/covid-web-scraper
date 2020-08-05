@@ -46,5 +46,11 @@ namespace Cdc.Covid.WebScraper.UI
             homeGrid.Visibility = Visibility.Hidden;
             rootFrame.Visibility = Visibility.Visible;
         }
+
+        private void ReportsList_GotFocus(object sender, RoutedEventArgs e)
+        {
+            homeGrid.Visibility = Visibility.Hidden;
+            rootFrame.Visibility = Visibility.Visible;
+        }
     }
 }

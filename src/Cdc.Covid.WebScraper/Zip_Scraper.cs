@@ -17,13 +17,13 @@ namespace Cdc.Covid.WebScraper
         private Expression _expression = new Expression();
 
 
-        public Zip_Scraper(string state, string stateAbbreviation, SourceTypes sourceType, string source, Expression expression)
+        public Zip_Scraper(StateScrapeInfo info)
         {
-            _state = state;
-            _stateAbbreviation = stateAbbreviation;
-            _sourceType = sourceType;
-            _source = source;
-            _expression = expression;
+            _state = info.State;
+            _stateAbbreviation = info.StateAbbreviation;
+            _sourceType = info.SourceType;
+            _source = info.Source;
+            _expression = info.ExpressionObject;
         }
 
         public async Task<StateReport> ExecuteScrapeAsync()

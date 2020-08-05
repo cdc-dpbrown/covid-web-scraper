@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -33,6 +34,7 @@ namespace Cdc.Covid.WebScraper.UI
         }
 
         public ObservableCollection<StateReport> Reports { get; private set; } = new ObservableCollection<StateReport>();
+        public ObservableCollection<StateReport> SortedReports { get; private set; }
 
         public ICommand GenerateReportCommand { get { return new RelayCommand(GenerateReportCommandExecute, CanExecuteGenerateReportCommand); } }
         private bool CanExecuteGenerateReportCommand() => true;
