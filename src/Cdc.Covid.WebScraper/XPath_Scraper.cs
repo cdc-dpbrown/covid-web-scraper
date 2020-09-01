@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 
@@ -62,7 +57,7 @@ namespace Cdc.Covid.WebScraper
                                 {
                                     foreach (var cell in countyRow.ChildNodes)
                                     {
-                                        var innerText = cell.InnerText;
+                                        var innerText = System.Web.HttpUtility.HtmlDecode(cell.InnerText);
                                         _countyData.Add(innerText);
                                     }
 
@@ -75,7 +70,6 @@ namespace Cdc.Covid.WebScraper
 
                         }
                     }
-
                 }
             }
 
